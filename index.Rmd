@@ -1,0 +1,90 @@
+---
+title       : Simple shiny app  
+subtitle    : European capitals test
+author      : Pietro Ruggerini  
+job         : Researcher
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [bootstrap, quiz]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Introduction
+
+Hello! 
+
+For the assigment I've created a very simple survey, where you have to associate each european capital with the correct country.
+
+This app was developed as an exercise to show some conditional execution of reactive statements; working in the market research field, I tried to develop something that could be useful for my future works (e.g. online surveys).
+
+The application uses 9 radio buttons (single choiche answers), arranged in 3 columns, using the fluidPage
+layout. 
+
+On the Server side, a conditional operation is performed in a reactive way and 
+1 point is assigned for each correct answer. 
+
+Each time the button Submit is pressed, the calculation is performed again
+
+--- .class #id 
+
+## Questions 
+
+Since the questions require a single choice out of 3 (plus "Don't know"), I used the 'radiobutton' function.  
+
+Here is the first example:
+
+ radioButtons("q1", strong("Italy"),
+                 c("Don't know"="0",
+                   "Rome" = "1",
+                   "Milan" = "2",
+                   "Florence" = "3"), 
+                 selected="0")
+                 
+Where "q1" is the iname of the input variable, followed by the label to be shown formatted as strong, followed by the 4 choices, associated with a number. The last parameter sets the "0" choice ("Don't know") selected by default.
+
+The next page shows an example of the same question type in Slidify.
+
+--- &radio
+## Question 1
+
+What is the capital of Italy?
+
+1. Don't know
+2. _Rome_
+3. Milan
+4. Naples
+
+*** .hint
+Google is your friend! 
+
+*** .explanation
+This is an explanation
+
+--- .class #id 
+
+
+## Calculations
+
+The score is calculated each time the Submit button is pressed.
+
+A conditional function assigns a score of 0 and 1 for each question; at the same time, a sum of these values is performed.
+
+Here is the code:
+
+output$total<- reactive(
+      {if (input$q1=="1") 1 else 0}+
+      {if (input$q2=="2") 1 else 0}+
+      {if (input$q3=="3") 1 else 0}+
+      {if (input$q4=="2") 1 else 0}+
+      {if (input$q5=="3") 1 else 0}+
+      {if (input$q6=="2") 1 else 0}+
+      {if (input$q7=="3") 1 else 0}+
+      {if (input$q8=="1") 1 else 0}+
+      {if (input$q9=="1") 1 else 0}
+      )
+
+
+
+Thank you!
